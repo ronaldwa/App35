@@ -1,0 +1,12 @@
+
+
+.jumbotron {
+  background: red;
+  color: white;
+  padding-bottom: 0px; }
+  .jumbotron p {
+    color: #d9ccee;
+    max-width: 80%;
+    margin: 1em auto 2em; }
+  .navbar + .jumbotron {
+    margin-top: -20px; }
