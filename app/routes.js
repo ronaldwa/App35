@@ -1,4 +1,12 @@
 // app/routes.js
+var rating = require('./models/rating.js');
+var User   = require('../app/models/user');
+var configDB = require('../config/database.js');
+var mongoose = require('mongoose');
+
+var conn = mongoose.createConnection(configDB.url);
+var User = conn.model('User');
+
 module.exports = function(app, passport) {
 
     // =====================================
@@ -62,10 +70,51 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
+    // =====================================
+    // DRINKS ==============================
+    //======================================
     app.get('/list', isLoggedIn, function(req, res) {
         res.render('pages/list.ejs', {
             user : req.user // get the user out of session and pass to template
         });
+    });
+
+    app.get('/00001', isLoggedIn, function(req, res){
+        res.render('pages/drinks/00001.ejs', {
+            user: req.user
+        });
+    });
+
+    app.get('/rateOneStar', isLoggedIn, function(req, res){
+        User.findByIdAndUpdate(
+            req.user._id,
+            {$addToSet: {"ratings.oneStar": 2}},
+            {safe: true, upsert: true, new : true},
+            function(err, model) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Succesfully updated!");
+                    res.redirect('/profile');
+                };
+            });
+    });
+
+    app.get('/rateTwoStars', isLoggedIn, function(req, res){
+        User.findByIdAndUpdate(
+            req.user._id,
+            {$addToSet: {"ratings.twoStars": 1}},
+            {safe: true, upsert: true, new : true},
+            function(err, model) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Succesfully updated!");
+                    res.redirect('/profile');
+                };
+            });
     });
 
     // =====================================

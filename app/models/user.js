@@ -27,6 +27,13 @@ var userSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
+    },
+    ratings          : {
+        oneStar      : [Number],
+        twoStars     : [Number],
+        threeStars   : [Number],
+        fourStars    : [Number],
+        fiveStars    : [Number]
     }
 
 });
