@@ -3,6 +3,7 @@ var rating = require('./models/rating.js');
 var User   = require('../app/models/user');
 var configDB = require('../config/database.js');
 var mongoose = require('mongoose');
+var whisky;
 
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
@@ -83,39 +84,60 @@ module.exports = function(app, passport) {
         res.render('pages/drinks/00001.ejs', {
             user: req.user
         });
+        whisky = 00001;
     });
 
     app.get('/rateOneStar', isLoggedIn, function(req, res){
-        User.findByIdAndUpdate(
-            req.user._id,
-            {$addToSet: {"ratings.oneStar": 2}},
-            {safe: true, upsert: true, new : true},
-            function(err, model) {
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    console.log("Succesfully updated!");
-                    res.redirect('/profile');
-                };
-            });
+        var query = {
+            ratings: {
+                $elemMatch: {}
+            }
+        };
+        query.ratings.$elemMatch[whisky] = {$gt: 0};
+
+        User.find(query)
+        .exec(function(err, result){
+            if(err){
+                console.log(err);
+            }
+            else if(!result.length){
+                User.findByIdAndUpdate(
+                    req.user._id,
+                    {$addToSet: {"ratings": {1 : 7}}},
+                    {safe: true, upsert: true, new : true},
+                    function(err, model) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            console.log("Succesfully updated!");
+                            res.redirect('/profile');
+                        };
+                    });
+            }
+            else{
+                console.log("You already voted for this whisky");
+                res.redirect('/profile');
+                console.log(result);
+            }
+        });
     });
 
-    app.get('/rateTwoStars', isLoggedIn, function(req, res){
-        User.findByIdAndUpdate(
-            req.user._id,
-            {$addToSet: {"ratings.twoStars": 1}},
-            {safe: true, upsert: true, new : true},
-            function(err, model) {
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    console.log("Succesfully updated!");
-                    res.redirect('/profile');
-                };
-            });
-    });
+app.get('/rateTwoStars', isLoggedIn, function(req, res){
+    User.findByIdAndUpdate(
+        req.user._id,
+        {$addToSet: {"ratings.twoStars": 1}},
+        {safe: true, upsert: true, new : true},
+        function(err, model) {
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log("Succesfully updated!");
+                res.redirect('/profile');
+            };
+        });
+});
 
     // =====================================
     // FACEBOOK ROUTES =====================
