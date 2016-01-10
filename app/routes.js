@@ -88,14 +88,17 @@ module.exports = function(app, passport) {
     });
 
     app.get('/rateOneStar', isLoggedIn, function(req, res){
-        var query = {
+        /*var query = {
             ratings: {
                 $elemMatch: {}
             }
-        };
-        query.ratings.$elemMatch[whisky] = {$gt: 0};
+        };*/
 
-        User.find({$and: [{_id:req.user._id}, {query}]})
+        var query = {};
+        query[whisky] = {$gt: 0};
+        //query.ratings.$elemMatch[whisky] = {$gt: 0};
+
+        User.find({$and: [{_id:req.user._id}, {ratings: {$elemMatch: query}}]})
         .exec(function(err, result){
             if(err){
                 console.log(err);
@@ -114,6 +117,8 @@ module.exports = function(app, passport) {
                             res.redirect('/profile');
                         };
                     });
+                console.log(result);
+                console.log(req.user._id);
             }
             else{
                 console.log("You already voted for this whisky");
