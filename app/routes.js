@@ -95,7 +95,7 @@ module.exports = function(app, passport) {
         };
         query.ratings.$elemMatch[whisky] = {$gt: 0};
 
-        User.find(query)
+        User.find({$and: [{_id:req.user._id}, {query}]})
         .exec(function(err, result){
             if(err){
                 console.log(err);
