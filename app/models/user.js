@@ -28,14 +28,7 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
-    ratings          : {
-        oneStar      : [Number],
-        twoStars     : [Number],
-        threeStars   : [Number],
-        fourStars    : [Number],
-        fiveStars    : [Number]
-    }
-
+    ratings          : []
 });
 
 // methods ======================
