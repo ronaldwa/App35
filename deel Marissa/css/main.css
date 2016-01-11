@@ -35,3 +35,9 @@ body {
 html {
   height: 100%;
 }
+
+.navbar-brand {
+	padding-left: 25px;
+	padding-right: 50px;
+	padding-top: 0px;
+}
