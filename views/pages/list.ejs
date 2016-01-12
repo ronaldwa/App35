@@ -5,12 +5,21 @@
 </head>
 
 <body>
-<% include ../partials/nav.ejs %> 
+<% include ../partials/nav.ejs %>
 
 <div class="container">
-  <div class="alert alert-info text-center" role="alert">
-  <%= user.local.email %>
- </div>
+
+  <form action="<%= action %>" method="post">
+
+  <% if (fields.length) { %>
+      <% fields.forEach(function(field){ %>
+          <label><%= field.name %></label>
+          <input type="<%= field.type %>" name="<%= field.name %>" <% if (field.property) { %> <%= field.property %> <% } %> >
+      <% }) %>
+  <% } %>
+
+  <button type="submit"><%= title %></button> <!--Title for button is same as that of the page-->
+  </form>
 
 
   </div>

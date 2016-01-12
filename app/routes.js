@@ -74,9 +74,15 @@ module.exports = function(app, passport) {
     // DRINKS ==============================
     //======================================
     app.get('/list', isLoggedIn, function(req, res) {
-        res.render('pages/list.ejs', {
-            user : req.user // get the user out of session and pass to template
-        });
+      res.render('pages/list.ejs', {
+        user: req.user,
+         title: "Login", //page title
+         action: "/login", //post action for the form
+         fields: [
+         {name:'email',type:'text',property:'required'},   //first field for the form
+         {name:'password',type:'password',property:'required'}   //another field for the form
+         ]
+     });
     });
 
     app.get('/00001', isLoggedIn, function(req, res){
