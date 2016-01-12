@@ -1,3 +1,29 @@
+body {
+  background: url(https://dianabusby.files.wordpress.com/2013/07/2013-07-07-weekly-upload-093.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.logo{
+	background: white;
+	border-radius: 10px;
+}
+.title{
+	font-family: 'Calibri	';
+}
+.jumbotron {
+	background: transparent;
+}
+.col-sm-8{
+	background: transparent;
+}
+.container{
+	margin-top: 5%;
+	background: rgba(255, 255, 255, 0.5);;
+	color:	black;
+	border-radius: 10px;
+}
 .first-slide{
 	height: 800px;
 	width: 500px;

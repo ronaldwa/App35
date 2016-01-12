@@ -1,7 +1,7 @@
 {
   "name": "App35",
   "version": "0.1.5",
-  "description": "An app about Whiskey",
+  "description": "An app about Whisky",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -12,9 +12,6 @@
     "mongoose" : "~3.8.1",
     "passport" : "~0.1.17",
     "passport-local" : "~0.1.6",
-    "passport-facebook" : "~1.0.2",
-    "passport-twitter" : "~1.0.2",
-    "passport-google-oauth" : "~0.1.5",
     "connect-flash" : "~0.1.1",
     "bcrypt-nodejs" : "latest"
   },
