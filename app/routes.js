@@ -3,7 +3,6 @@ var rating = require('./models/rating.js');
 var User   = require('../app/models/user');
 var configDB = require('../config/database.js');
 var mongoose = require('mongoose');
-var whisky;
 
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
@@ -82,67 +81,38 @@ module.exports = function(app, passport) {
 
     app.get('/00001', isLoggedIn, function(req, res){
         res.render('pages/drinks/00001.ejs', {
-            user: req.user
+            user: req.user,
+            message: rating.message
         });
-        whisky = 00001;
+        whisky = 00002;
     });
 
     app.get('/rateOneStar', isLoggedIn, function(req, res){
-        /*var query = {
-            ratings: {
-                $elemMatch: {}
-            }
-        };*/
+        rating.check(whisky, req, res);
+    });
 
-        var query = {};
-        query[whisky] = {$gt: 0};
-        //query.ratings.$elemMatch[whisky] = {$gt: 0};
-
-        User.find({$and: [{_id:req.user._id}, {ratings: {$elemMatch: query}}]})
-        .exec(function(err, result){
-            if(err){
-                console.log(err);
-            }
-            else if(!result.length){
-                User.findByIdAndUpdate(
-                    req.user._id,
-                    {$addToSet: {"ratings": {1 : 7}}},
-                    {safe: true, upsert: true, new : true},
-                    function(err, model) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            console.log("Succesfully updated!");
-                            res.redirect('/profile');
-                        };
-                    });
-                console.log(result);
-                console.log(req.user._id);
-            }
-            else{
-                console.log("You already voted for this whisky");
-                res.redirect('/profile');
-                console.log(result);
-            }
+    app.get('/rated', isLoggedIn, function(req, res){
+        res.render('pages/rated.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            message : rating.message
         });
     });
 
-app.get('/rateTwoStars', isLoggedIn, function(req, res){
-    User.findByIdAndUpdate(
-        req.user._id,
-        {$addToSet: {"ratings.twoStars": 1}},
-        {safe: true, upsert: true, new : true},
-        function(err, model) {
-            if(err){
-                console.log(err);
-            }
-            else{
-                console.log("Succesfully updated!");
-                res.redirect('/profile');
-            };
-        });
-});
+    app.get('/rateTwoStars', isLoggedIn, function(req, res){
+        User.findByIdAndUpdate(
+            req.user._id,
+            {$addToSet: {"ratings.twoStars": 1}},
+            {safe: true, upsert: true, new : true},
+            function(err, model) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Succesfully updated!");
+                    res.redirect('/profile');
+                };
+            });
+    });
 
     // =====================================
     // FACEBOOK ROUTES =====================
