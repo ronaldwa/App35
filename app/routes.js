@@ -82,7 +82,6 @@ module.exports = function(app, passport) {
     app.get('/00001', isLoggedIn, function(req, res){
         res.render('pages/drinks/00001.ejs', {
             user: req.user,
-            message: rating.message
         });
         whisky = 00002;
     });
@@ -94,24 +93,12 @@ module.exports = function(app, passport) {
     app.get('/rated', isLoggedIn, function(req, res){
         res.render('pages/rated.ejs', {
             user : req.user, // get the user out of session and pass to template
-            message : rating.message
+            rated: global.rated,
+            description: global.description
         });
     });
 
     app.get('/rateTwoStars', isLoggedIn, function(req, res){
-        User.findByIdAndUpdate(
-            req.user._id,
-            {$addToSet: {"ratings.twoStars": 1}},
-            {safe: true, upsert: true, new : true},
-            function(err, model) {
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    console.log("Succesfully updated!");
-                    res.redirect('/profile');
-                };
-            });
     });
 };
 
