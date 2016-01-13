@@ -77,12 +77,19 @@ module.exports = function(app, passport) {
       res.render('pages/list.ejs', {
         user: req.user,
          title: "Login", //page title
-         action: "/login", //post action for the form
+         action: "/update", //post action for the form
          fields: [
-         {name:'email',type:'text',property:'required'},   //first field for the form
-         {name:'password',type:'password',property:'required'}   //another field for the form
+         {name:'Brewery',type:'text',property:'required'},   //first field for the form
+         {name:'Year',type:'number',property:'required'},   //another field for the form
+         {name:'Name',type:'text',property:'required'}
          ]
      });
+    });
+
+    app.get('/update', isLoggedIn, function(req,ers){
+        res.render('pages/profile.ejs', {
+            user: req.user
+        });
     });
 
     app.get('/00001', isLoggedIn, function(req, res){
