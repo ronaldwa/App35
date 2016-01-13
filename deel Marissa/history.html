@@ -1,5 +1,4 @@
-<!-- views/profile.ejs -->
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Distilled Gold</title>
@@ -14,14 +13,14 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/main.css" />
 	
-	<!--scripts etc voor search bar -->
+	<!--scripts voor search bar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-	
 </head>
+
 <body>
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -42,13 +41,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="list.html">Whiskeys </a></li> <!--dit was eerst list-->
-
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> jurjenfaber94@hotmail.com <span class="caret"></span></a>
-           <!--hier moet het email adres veranderd worden naar bestanden uit de database -->
+          <!--hier moet het email adres veranderd worden naar bestanden uit de database -->
 		  <ul class="dropdown-menu">
             <li><a href="/profile">Profile</a></li>
             <li role="separator" class="divider"></li>
@@ -58,7 +56,7 @@
       </ul>
 	  
 	  	  <!--search bar, ik weet niet of hij ook echt al iets kan vinden op de pagina -->
-	          <div class="col-sm-3 col-md-3 pull-right">
+	            <div class="col-sm-3 col-md-3 pull-right">
             <form class="navbar-form" role="search">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" name="q">
@@ -73,48 +71,13 @@
 </nav>
 
 <div class="container">
+ <div class="jumbotron text-center">
+         <h2>Biggest moments in Irish Whiskey history</h2>
+		 
+         <!-- hier een aantal feitjes en daar onder aan aantal ierse whiskeys die worden aangeraden -->
+     </div>
+  <!-- http://www.thespiritsbusiness.com/2014/09/biggest-moments-in-irish-whiskey-history/ website met history-->
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page of jurjenfaber94@hotmail</h1>
-
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-        <a href="/list" class="btn btn-default"><span class="fa fa-user"></span> List </a>
-        <a href="/00001" class="btn btn-default btn-sm">Whisky</a>
-
-    </div>
-
-    <div class="row">
-
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
-
-                    <p>
-                        <strong>id</strong>: 569182d8f09757f817ad397<br>
-                        <strong>email</strong>: jurjenfaber94@hotmail.com<br>
-                        <strong>password</strong>: geheim
-                    </p>
-
-            </div>
-        </div>
-        <!-- FACEBOOK INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %>
-                    </p>
-
-            </div>
-        </div>
-
-    </div>
-
-</div>
+  </div>
 </body>
 </html>
