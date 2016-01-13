@@ -9,16 +9,26 @@
 
 <div class="container">
 
-  <form action="<%= action %>" method="post">
+  <form action="/add" method="post">
+  	<div class="form-group">
+  		<label>Name</label>
+  		<input type="text" class="form-control" name="name" placeholder="Name of the Whisky">
+  		<label>Type</label>
+  		<select class="form-control" name="type">
+  			<option value="malt">Malt</option>
+  			<option value="grain">Grain</option>
+  			<option value="blended">Blended</option>
+  			<option value="singlePotStill">Single Pot Still</option>
+  			<option value="bourbon">Bourbon</option>
+  			<option value="tennessee">Tennessee</option>
+  			<option value="rye">Rye</option>
+  			<option value="corn">Corn</option>
+  		</select>
+  		<label>Country</label>
+  		<input type="text" class="form-control" name="country" placeholder="Country of origin">
+  	</div>
 
-  <% if (fields.length) { %>
-      <% fields.forEach(function(field){ %>
-          <label><%= field.name %></label>
-          <input type="<%= field.type %>" name="<%= field.name %>" <% if (field.property) { %> <%= field.property %> <% } %> >
-      <% }) %>
-  <% } %>
-
-  <button type="submit"><%= title %></button> <!--Title for button is same as that of the page-->
+  <button type="submit">Submit</button> <!--Title for button is same as that of the page-->
   </form>
 
 

@@ -1,8 +1,10 @@
 // app/routes.js
-var rating = require('./models/rating.js');
+var rating = require('../public/js/rating.js');
 var User   = require('../app/models/user');
 var configDB = require('../config/database.js');
 var mongoose = require('mongoose');
+var Whisky = require('../app/models/whisky.js');
+var addWhisky = require('../public/js/addWhisky.js');
 
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
@@ -75,26 +77,21 @@ module.exports = function(app, passport) {
     //======================================
     app.get('/list', isLoggedIn, function(req, res) {
       res.render('pages/list.ejs', {
-        user: req.user,
-         title: "Login", //page title
-         action: "/update", //post action for the form
-         fields: [
-         {name:'Brewery',type:'text',property:'required'},   //first field for the form
-         {name:'Year',type:'number',property:'required'},   //another field for the form
-         {name:'Name',type:'text',property:'required'}
-         ]
+        user: req.user
      });
     });
 
-    app.get('/update', isLoggedIn, function(req,ers){
-        res.render('pages/profile.ejs', {
-            user: req.user
+    app.post('/add', isLoggedIn, function(req, res) {
+        addWhisky.add(req.body.name, req.body.type, req.body.country, req, res);
+        res.render('pages/added.ejs', {
+            user: req.user,
+            whiskyName: req.body.name
         });
     });
 
     app.get('/00001', isLoggedIn, function(req, res){
         res.render('pages/drinks/00001.ejs', {
-            user: req.user,
+            user: req.user
         });
         whisky = 00002;
     });

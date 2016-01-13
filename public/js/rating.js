@@ -1,5 +1,5 @@
 // /config/rating.js
-var User   = require('../models/user');
+var User   = require('../../app/models/user.js');
 var configDB = require('../../config/database.js');
 var mongoose = require('mongoose');
 var whisky;
