@@ -7,15 +7,17 @@
 <body>
   <%include ../partials/nav.ejs %>
 <div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    under construction
- </div>
+  <div class="alert text-center" role="alert">
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Done!</h1>
+    </div>
+  </div>
 
 
      <div class="jumbotron text-center">
-      <p>Thank you for rating, you rated it with a <%= rated%>. You described it as <%= description%></p>
+      <p>Thank you for rating, you rated your whiskey with a <%= rated%>. You described it as <%= description%></p>
      </div>
-
+     <p align="center"><a class="btn btn-lg btn-primary" href="/00001" role="button">Rate another whiskey!</a></p>
 
   </div>
 </body>

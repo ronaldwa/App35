@@ -271,6 +271,22 @@ module.exports = function(app, passport) {
 
     app.get('/rateTwoStars', isLoggedIn, function(req, res){
     });
+
+    app.post('/searchresult', isLoggedIn, function(req, res) {
+      Whisky.find({name: {$regex :  req.body.search}}).lean().exec(function(err, result){
+        if(err){
+          console.log(err);
+        }
+        else{
+          console.log(result);
+          global.results = result;
+          res.render('pages/searchresult.ejs', {
+              user : req.user, // get the user out of session and pass to templat
+              whiskyName: global.results
+          });
+        }
+      });
+    });
 };
 
 // route middleware to make sure a user is logged in

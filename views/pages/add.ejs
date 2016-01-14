@@ -8,6 +8,11 @@
 <% include ../partials/nav.ejs %>
 
 <div class="container">
+  <div class="alert text-center" role="alert">
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Add your whiskey</h1>
+    </div>
+  </div>
 
   <form action="/added" method="post">
   	<div class="form-group">
@@ -28,7 +33,9 @@
   		<input type="text" class="form-control" name="country" placeholder="Country of origin">
   	</div>
 
-  <button type="submit">Submit</button> <!--Title for button is same as that of the page-->
+
+
+  <p align="center"> <button class="button2 btn btn-lg btn-primary" type="submit">Submit</button> </p><!--Title for button is same as that of the page-->
   </form>
 
 

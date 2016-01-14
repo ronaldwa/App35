@@ -1,10 +1,16 @@
 <% whiskyName.forEach(function(whisky){ %>
-  <div class='whisky'>
-  <li><a href='/connector/<%= whisky._id %>'><b><%= whisky.name %></b></a>  </li>
-  Country: <%= whisky.country %> <br>
-  type: <%= whisky.type %>
-</div>
+  <div class="col-sm-6">
+      <div class="well" align="center">
+        <div class='whisky'>
+        <a href='/connector/<%= whisky._id %>'><b><%= whisky.name %></b></a><br>
+        Country: <%= whisky.country %> <br>
+        type: <%= whisky.type %>
+        </div>
+      </div>
+  </div>
 <%  }); %>
+<div class="col-sm-12">
+      <h3>Have you been drinking a Whisky that is not in the list?<h3>
+      <p><a class="btn btn-lg btn-primary" href="/add" role="button">Add your own Whisky</a></p>
+</div>
 <hr>
-Have you been drinking a Whisky that is not in the list? <br>
-<a href="/add"> Add your own Whisky</a>
