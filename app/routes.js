@@ -75,13 +75,13 @@ module.exports = function(app, passport) {
     // =====================================
     // DRINKS ==============================
     //======================================
-    app.get('/list', isLoggedIn, function(req, res) {
-      res.render('pages/list.ejs', {
+    app.get('/add', isLoggedIn, function(req, res) {
+      res.render('pages/add.ejs', {
         user: req.user
      });
     });
 
-    app.post('/add', isLoggedIn, function(req, res) {
+    app.post('/added', isLoggedIn, function(req, res) {
         addWhisky.add(req.body.name, req.body.type, req.body.country, req, res);
         res.render('pages/added.ejs', {
             user: req.user,
