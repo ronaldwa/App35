@@ -12,6 +12,7 @@ var Whisky = conn.model('Whisky');
 var results;
 global.whiskyNum = 00001;
 global.varstring = "/rateOneStar";
+global.whiskyID;
 
 module.exports = function(app, passport) {
 
@@ -74,6 +75,9 @@ module.exports = function(app, passport) {
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
+    });
+
+    app.get('/connector', function(req, res) {
     });
 
     // =====================================
