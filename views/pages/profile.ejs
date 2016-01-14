@@ -10,7 +10,7 @@
   <div class="container">
   	<div class="alert text-center" role="alert">
   		<div class="page-header text-center">
-  			<h1><span class="fa fa-anchor"></span> Profile Page of jurjenfaber94@hotmail</h1>
+  			<h1><span class="fa fa-anchor"></span> Profile Page of <%= user.local.email %></h1>
 
   			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
   			<a href="list.html" class="btn btn-default"><span class="fa fa-user"></span> List </a>
@@ -27,11 +27,9 @@
 
   		<!-- LOCAL INFORMATION -->
           <div class="well">
-  			<h3><span class="fa fa-user"></span> Local</h3>
+  			<h3><span class="fa fa-user"></span> account</h3>
                   <p>
-                  <strong>id</strong>: 569182d8f09757f817ad397<br>
-                  <strong>email</strong>: jurjenfaber94@hotmail.com<br>
-                  <strong>password</strong>: geheim
+                  <strong>email</strong>: <%= user.local.email %><br>
                   </p>
           </div>
       </div>
