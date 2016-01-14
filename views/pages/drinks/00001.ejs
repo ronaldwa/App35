@@ -7,8 +7,15 @@
 <body>
   <%include ../../partials/nav.ejs %>
 <div class="container">
+  <div class="alert text-center" role="alert">
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Rate your whiskey</h1>
+    </div>
+  </div>
+<%include ../../partials/inspiration.ejs %>
+
   <form action="<%= varstring%>" method="post">
-      <label>Type</label>
+      <label>Grade</label>
       <select class="form-control" name="whiskyRating">
         <option value=1>1</option>
         <option value=2>2</option>
@@ -24,10 +31,10 @@
       <label>Description</label>
       <input type="text" class="form-control" name="description" placeholder="Description">
 
-  <button type="submit">Submit</button> <!--Title for button is same as that of the page-->
+  <p align="center"> <button class="button2 btn btn-lg btn-primary type="submit">Submit</button> </p><!--Title for button is same as that of the page-->
   </form>
 
-  <%= whiskyNum%>
+  <!-- <%= whiskyNum%> -->
 
   </div>
 </body>

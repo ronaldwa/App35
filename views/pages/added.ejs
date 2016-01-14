@@ -8,8 +8,14 @@
 <% include ../partials/nav.ejs %>
 
 <div class="container">
+  <div class="alert text-center" role="alert">
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Thanks for submitting the whiskey: <%= whiskyName%>!</h1>
+    </div>
+  </div>
+  <%include ../partials/inspiration.ejs %>
 
-<p>Thanks for submitting the whisky: <%= whiskyName%>!</p>
+  <p align="center"><a class="btn btn-lg btn-primary" href="/add" role="button">Add another whiskey!</a></p>
 
 
   </div>
