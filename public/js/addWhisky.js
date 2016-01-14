@@ -22,13 +22,4 @@ exports.add = function(whiskyName, whiskyType, whiskyCountry, req, res){
     whisky.save(function(err){
          if (err) throw err;
     });
-
-    // Whisky.findByIdAndUpdate(
-    //     Whisky._id,
-    //     {$push: {"ratings": {name: whiskyName, type: whiskyType}}},
-    //     {safe: true, upsert: true, new : true},
-    //     function(err, model) {
-    //         console.log(err);
-    //     }
-    // );
 };
