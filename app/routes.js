@@ -78,11 +78,23 @@ module.exports = function(app, passport) {
     });
 
     app.get('/whiskys/:id', isLoggedIn, function(req, res) {
-    var id = req.params.id;
-        res.render('pages/whisky.ejs', {
-            user: req.user
-        });
-    console.log(id);
+        id = req.params.id;
+        Whisky.find({_id: id}).exec(function(err, result){
+          if(err){
+            console.log(err);
+        }
+        else
+        {
+            console.log(result);
+            global.info = result;
+            console.log(global.info);
+            res.render('pages/whisky.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyInfo: global.info
+            });
+        }
+    });
+        console.log(id);
     });
 
     // =====================================
@@ -91,8 +103,8 @@ module.exports = function(app, passport) {
     app.get('/add', isLoggedIn, function(req, res) {
       res.render('pages/add.ejs', {
         user: req.user
-     });
     });
+  });
 
     app.post('/added', isLoggedIn, function(req, res) {
         addWhisky.add(req.body.name, req.body.type, req.body.country, req, res);
@@ -108,9 +120,9 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.post(varstring, isLoggedIn, function(req, res){
+    app.post('/rate', isLoggedIn, function(req, res){
         whiskyRating = +req.body.whiskyRating;
-        rating.check(whiskyNum, req.body.description, whiskyRating, req, res);
+        rating.add(id, req.body.description, whiskyRating, req, res);
     });
 
     app.get('/history', isLoggedIn, function(req, res) {
@@ -131,144 +143,144 @@ module.exports = function(app, passport) {
         Whisky.find({}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_blended', isLoggedIn, function(req, res){
         Whisky.find({type: 'Blended'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_blended.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_bourbon', isLoggedIn, function(req, res){
         Whisky.find({type: 'Bourbon'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_bourbon.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_corn', isLoggedIn, function(req, res){
         Whisky.find({type: 'Corn'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_corn.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_grain', isLoggedIn, function(req, res){
         Whisky.find({type: 'Grain'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_grain.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_malt', isLoggedIn, function(req, res){
         Whisky.find({type: 'Malt'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_malt.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_rye', isLoggedIn, function(req, res){
         Whisky.find({type: 'Rye'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_rye.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_singlepot', isLoggedIn, function(req, res){
         Whisky.find({type: 'Single Pot Still'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_singlepot.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/list_tennessee', isLoggedIn, function(req, res){
         Whisky.find({type: 'Tennessee'}).lean().exec(function(err, result){
           if(err){
             console.log(err);
-          }
-          else{
+        }
+        else{
             console.log(result);
             global.results = result;
             res.render('pages/list_tennessee.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-          }
-        });
+        }
+    });
     });
 
     app.get('/rateTwoStars', isLoggedIn, function(req, res){
@@ -278,17 +290,17 @@ module.exports = function(app, passport) {
       Whisky.find({name: {$regex :  req.body.search}}).lean().exec(function(err, result){
         if(err){
           console.log(err);
-        }
-        else{
+      }
+      else{
           console.log(result);
           global.results = result;
           res.render('pages/searchresult.ejs', {
               user : req.user, // get the user out of session and pass to templat
               whiskyName: global.results
           });
-        }
-      });
-    });
+      }
+  });
+  });
 };
 
 // route middleware to make sure a user is logged in

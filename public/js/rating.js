@@ -1,24 +1,22 @@
 // /config/rating.js
-var User   = require('../../app/models/user.js');
+var user   = require('../../app/models/user.js');
 var configDB = require('../../config/database.js');
 var mongoose = require('mongoose');
-var whisky;
+var whisky   = require('../../app/models/whisky.js');
 
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
+var Whisky = conn.model('Whisky');
 
-exports.check = function(whisky, whiskyDescription, whiskyRating, req, res){
-    console.log(whisky);
-    global.rated = 7;
+exports.add = function(whiskyID, whiskyDescription, whiskyRating, req, res){
     var getWhiskyNumber = {
         ratings: {
             $elemMatch: {}
         }
     };
-    getWhiskyNumber.ratings.$elemMatch[whisky] = {$ne: null};
+    getWhiskyNumber.ratings.$elemMatch[whiskyID] = {$ne: null};
     var ratingQuery = {};
-    ratingQuery[whisky] = {rating: whiskyRating, description: whiskyDescription};
-        //query.ratings.$elemMatch[whisky] = {$gt: 0};
+    ratingQuery[whiskyID] = {rating: whiskyRating, description: whiskyDescription};
 
         User.find({$and: [{_id:req.user._id}, getWhiskyNumber]})
         .exec(function(err, result){
@@ -36,7 +34,6 @@ exports.check = function(whisky, whiskyDescription, whiskyRating, req, res){
         				}
         				else{
         					console.log("Succesfully updated!");
-        					res.redirect('/profile');
         				};
         			});
         		console.log(result);
@@ -53,8 +50,34 @@ exports.check = function(whisky, whiskyDescription, whiskyRating, req, res){
 
                 };
                 console.log("You already voted for this whisky");
-                res.redirect('/rated');
-                console.log(result);
             }
         });
+
+var ratingQueryWhisky = {};
+ratingQueryWhisky[req.user._id] = {rating: whiskyRating, description: whiskyDescription};
+
+Whisky.find({_id: id})
+.exec(function(err, result){
+    if(err){
+        console.log(err);
+    }
+    else{
+        Whisky.findByIdAndUpdate(
+            whiskyID,
+            {$addToSet: {"ratings": ratingQueryWhisky}},
+            {safe: true, upsert: true, new : true},
+            function(err, model) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Succesfully updated!");
+                };
+            });
+        console.log(result);
+        console.log(req.user._id);
+    }
+});
+
+res.redirect('/whiskys/' + whiskyID);
 };
