@@ -77,9 +77,12 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    app.get('/connector/:id', function(req, res) {
-        var id = req.params.id;
-        console.log(id);
+    app.get('/whiskys/:id', isLoggedIn, function(req, res) {
+    var id = req.params.id;
+        res.render('pages/whisky.ejs', {
+            user: req.user
+        });
+    console.log(id);
     });
 
     // =====================================
@@ -108,7 +111,6 @@ module.exports = function(app, passport) {
     app.post(varstring, isLoggedIn, function(req, res){
         whiskyRating = +req.body.whiskyRating;
         rating.check(whiskyNum, req.body.description, whiskyRating, req, res);
-
     });
 
     app.get('/history', isLoggedIn, function(req, res) {
