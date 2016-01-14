@@ -7,29 +7,138 @@
 </head>
 <body>
   <%include ../partials/nav.ejs %>
-<div class="container">
+  <div class="container">
+  	<div class="alert alert-info text-center" role="alert">
+  		<div class="page-header text-center">
+  			<h1><span class="fa fa-anchor"></span> Profile Page of jurjenfaber94@hotmail</h1>
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page of <%= user.local.email %></h1>
+  			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+  			<a href="list.html" class="btn btn-default"><span class="fa fa-user"></span> List </a>
+  			<a href="/00001" class="btn btn-default btn-sm">Whisky</a>
 
-    </div>
+  		</div>
+  	</div>
 
+  	<div class="col-sm-6  text-center">
+  		<div class="well">
+              <h3 class="text-primary">Welcome! </h3>
+  			<p> Good to see you again </p>
+          </div>
 
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-8">
+  		<!-- LOCAL INFORMATION -->
+          <div class="well">
+  			<h3><span class="fa fa-user"></span> Local</h3>
+                  <p>
+                  <strong>id</strong>: 569182d8f09757f817ad397<br>
+                  <strong>email</strong>: jurjenfaber94@hotmail.com<br>
+                  <strong>password</strong>: geheim
+                  </p>
+          </div>
+      </div>
 
-                <h3><span class="fa fa-user"></span> Local</h3>
+      <div class="col-sm-6  text-center">
+          <div class="well">
+              <h3 class="text-primary">The whiskey you rated last time: </h3>
+  			<p> uit database halen </p>
+  			<br>
+  			<img class="lastwhiskey" src="img/whiskey1.png" height="400" width="150">
+  			<br>
+              </div>
+      </div>
 
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>1Star</strong>: <%=user.ratings.oneStar %><br>
-                        <strong>2Stars</strong>: <%=user.ratings.twoStars %>
-                    </p>
+  	<div class="col-sm-12">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+         <ol class="carousel-indicators">
+           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+           <li data-target="#myCarousel" data-slide-to="1"></li>
+           <li data-target="#myCarousel" data-slide-to="2"></li>
+         </ol>
 
+         <div class="carousel-inner" role="listbox">
+           <div class="item active"  align="center">
+             <img class="first-slide" src="img/jd.jpg" alt="First slide">
 
-        </div>
+             <div class="container">
+             <div class="carousel-caption">
+               <h1>Welcome to Distilled Gold</h1>
+               <h2>The whiskey ranking app</h2>
+               <p><a class="btn btn-lg btn-primary" href="/00001" role="button">You can rate your Whiskey here!</a></p>
+             </div>
+             </div>
+           </div>
 
-</div>
+           <div class="item"  align="center">
+             <img class="second-slide" src="img/history.jpg" alt="Second slide">
+             <div class="container">
+             <div class="carousel-caption">
+               <h1>Biggest moments in Irish Whiskey history</h1>
+               <p><a class="btn btn-lg btn-primary" href="/history" role="button">Click here to learn more</a></p>
+             </div>
+             </div>
+           </div>
+
+           <div class="item" align="center">
+             <img class="third-slide" src="img/bottles.jpg" alt="Third slide">
+             <div class="container">
+             <div class="carousel-caption">
+               <h1>(ik weet nog niet wat hier kan komen)</h1>
+             </div>
+             </div>
+           </div>
+         </div>
+
+         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+           <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+           <span class="sr-only">Previous</span>
+         </a>
+
+         <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+           <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+           <span class="sr-only">Next</span>
+         </a>
+       </div>
+
+  		<div class="well">
+  			<h3 class="text-primary text-center">Get more inspiration!</h3>
+  			<div class="row">
+  				<div class="col-lg-1">
+  				</div>
+
+  				<div class="col-lg-2">
+  				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+  				  <h2>Whiskey 1</h2>
+  				  <p> info about this whiskey </p>
+  				</div>
+
+  				<div class="col-lg-2">
+  				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+  				  <h2>Whiskey 2</h2>
+  				  <p> info about this whiskey </p>
+  				</div>
+
+  				<div class="col-lg-2">
+  				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+  				  <h2>Whiskey 3</h2>
+  				  <p> info about this whiskey </p>
+  				</div>
+
+  				<div class="col-lg-2">
+  				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+  				  <h2>Whiskey 4</h2>
+  				  <p> info about this whiskey </p>
+  				</div>
+
+  				<div class="col-lg-2">
+  				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+  				  <h2>Whiskey 5</h2>
+  				  <p> info about this whiskey </p>
+  				</div>
+  			</div>
+        <br>
+        <p align="center"><a class="btn btn-default" href="/00001" role="button">Start rating &raquo;</a></p>
+
+  		</div>
+  	</div>
+  </div>
 </body>
 </html>

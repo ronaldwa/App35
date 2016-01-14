@@ -10,6 +10,9 @@ var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
 var Whisky = conn.model('Whisky');
 var results;
+global.whiskyNum = 00001;
+global.varstring = "/rateOneStar";
+global.whiskyID;
 
 module.exports = function(app, passport) {
 
@@ -74,6 +77,9 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
+    app.get('/connector', function(req, res) {
+    });
+
     // =====================================
     // DRINKS ==============================
     //======================================
@@ -95,13 +101,18 @@ module.exports = function(app, passport) {
         res.render('pages/drinks/00001.ejs', {
             user: req.user
         });
-
-        whiskyNum = 00006;
     });
 
-    app.get('/rateOneStar', isLoggedIn, function(req, res){
-        rating.check(whiskyNum, whiskyNum, req, res);
+    app.post(varstring, isLoggedIn, function(req, res){
+        whiskyRating = +req.body.whiskyRating;
+        rating.check(whiskyNum, req.body.description, whiskyRating, req, res);
 
+    });
+
+    app.get('/history', isLoggedIn, function(req, res) {
+        res.render('pages/history.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
     });
 
     app.get('/rated', isLoggedIn, function(req, res){

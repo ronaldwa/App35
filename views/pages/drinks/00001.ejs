@@ -7,16 +7,27 @@
 <body>
   <%include ../../partials/nav.ejs %>
 <div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    under construction
- </div>
+  <form action="<%= varstring%>" method="post">
+      <label>Type</label>
+      <select class="form-control" name="whiskyRating">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+        <option value=10>10</option>
+      </select>
+      <label>Description</label>
+      <input type="text" class="form-control" name="description" placeholder="Description">
 
+  <button type="submit">Submit</button> <!--Title for button is same as that of the page-->
+  </form>
 
-     <div class="jumbotron text-center">
-      <a href="/rateOneStar" class="btn btn-default"><span class="fa fa-user"></span>One Star</a>
-      <a href="/rateTwoStars" class="btn btn-default"><span class="fa fa-user"></span>Two Stars</a>
-     </div>
-
+  <%= whiskyNum%>
 
   </div>
 </body>

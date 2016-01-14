@@ -1,10 +1,11 @@
-body {
+/* body {
   background: url(https://dianabusby.files.wordpress.com/2013/07/2013-07-07-weekly-upload-093.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
+} */
+
 .logo{
 	background: white;
 	border-radius: 10px;
@@ -23,21 +24,26 @@ body {
 	background: rgba(255, 255, 255, 0.5);;
 	color:	black;
 	border-radius: 10px;
-  width: 400px;
-}
+  }
 .first-slide{
-	height: 800px;
-	width: 500px;
+	width: 800px;
 }
 
 .second-slide{
-	height: 800px;
-	width: 500px;
+	width: 800px;
 }
 
 .third-slide{
-	height: 800px;
-	width: 500px;
+	width: 800px;
+}
+
+body {
+	background-color: black;
+	background-image: url("glass.jpg");
+	background-repeat: no-repeat;
+	background-size: 600px 400px;
+	background-position: left bottom;
+	background-attachment: fixed;
 }
 .whisky{
   background-color: red;

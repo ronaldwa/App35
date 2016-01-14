@@ -7,7 +7,7 @@ var whisky;
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
 
-exports.check = function(whisky, description, req, res){
+exports.check = function(whisky, whiskyDescription, whiskyRating, req, res){
     console.log(whisky);
     global.rated = 7;
     var getWhiskyNumber = {
@@ -17,7 +17,7 @@ exports.check = function(whisky, description, req, res){
     };
     getWhiskyNumber.ratings.$elemMatch[whisky] = {$ne: null};
     var ratingQuery = {};
-    ratingQuery[whisky] = {rating: whisky, description: "Very good whisky!"};
+    ratingQuery[whisky] = {rating: whiskyRating, description: whiskyDescription};
         //query.ratings.$elemMatch[whisky] = {$gt: 0};
 
         User.find({$and: [{_id:req.user._id}, getWhiskyNumber]})
