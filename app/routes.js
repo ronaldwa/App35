@@ -93,11 +93,11 @@ module.exports = function(app, passport) {
         res.render('pages/drinks/00001.ejs', {
             user: req.user
         });
-        whisky = 00002;
+        whisky = 00006;
     });
 
     app.get('/rateOneStar', isLoggedIn, function(req, res){
-        rating.check(whisky, req, res);
+        rating.check(whisky, whisky, req, res);
     });
 
     app.get('/rated', isLoggedIn, function(req, res){

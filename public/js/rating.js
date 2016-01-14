@@ -10,12 +10,17 @@ var User = conn.model('User');
 exports.check = function(whisky, description, req, res){
     console.log(whisky);
     global.rated = 7;
-    var getWhiskyNumber = {};
-    getWhiskyNumber[whisky] = {$ne: []};
+    var getWhiskyNumber = {
+        ratings: {
+            $elemMatch: {}
+        }
+    };
+    getWhiskyNumber.ratings.$elemMatch[whisky] = {$ne: null};
     var ratingQuery = {};
+    ratingQuery[whisky] = {rating: whisky, description: "Very good whisky!"};
         //query.ratings.$elemMatch[whisky] = {$gt: 0};
 
-        User.find({$and: [{_id:req.user._id}, {ratings: {$elemMatch: getWhiskyNumber}}]})
+        User.find({$and: [{_id:req.user._id}, getWhiskyNumber]})
         .exec(function(err, result){
         	if(err){
         		console.log(err);
@@ -23,7 +28,7 @@ exports.check = function(whisky, description, req, res){
         	else if(!result.length){
         		User.findByIdAndUpdate(
         			req.user._id,
-        			{$addToSet: {"ratings": {2 : {rating: 7, description: "Very good whisky!"}}}},
+        			{$addToSet: {"ratings": ratingQuery}},
         			{safe: true, upsert: true, new : true},
         			function(err, model) {
         				if(err){
