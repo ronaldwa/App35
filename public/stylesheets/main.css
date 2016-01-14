@@ -23,6 +23,7 @@ body {
 	background: rgba(255, 255, 255, 0.5);;
 	color:	black;
 	border-radius: 10px;
+  width: 400px;
 }
 .first-slide{
 	height: 800px;

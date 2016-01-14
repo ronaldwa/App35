@@ -5,10 +5,16 @@
 </head>
 
 <body>
+
+
 <% include ../partials/nav.ejs %>
 
 <div class="container">
-
+<% whiskyName.forEach(function(whisky){ %>
+  <li><b><%= whisky.name %></b>  </li>
+  Country: <%= whisky.country %> <br>
+  type: <%= whisky.type %>
+<%  }); %>
 </div>
 </body>
 </html>

@@ -1,13 +1,15 @@
 // app/routes.js
 var rating = require('../public/js/rating.js');
-var User   = require('../app/models/user');
+var user   = require('../app/models/user');
 var configDB = require('../config/database.js');
 var mongoose = require('mongoose');
-var Whisky = require('../app/models/whisky.js');
+var whisky = require('../app/models/whisky.js');
 var addWhisky = require('../public/js/addWhisky.js');
 
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
+var Whisky = conn.model('Whisky');
+var results;
 
 module.exports = function(app, passport) {
 
@@ -93,11 +95,11 @@ module.exports = function(app, passport) {
         res.render('pages/drinks/00001.ejs', {
             user: req.user
         });
-        whisky = 00002;
+        whiskyNum = 00002;
     });
 
     app.get('/rateOneStar', isLoggedIn, function(req, res){
-        rating.check(whisky, req, res);
+        rating.check(whiskyNum, whiskyNum, req, res);
     });
 
     app.get('/rated', isLoggedIn, function(req, res){
@@ -105,6 +107,22 @@ module.exports = function(app, passport) {
             user : req.user, // get the user out of session and pass to template
             rated: global.rated,
             description: global.description
+        });
+    });
+
+    app.get('/list', isLoggedIn, function(req, res){
+        Whisky.find({}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
         });
     });
 
