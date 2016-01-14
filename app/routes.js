@@ -77,7 +77,9 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    app.get('/connector', function(req, res) {
+    app.get('/connector/:id', function(req, res) {
+        var id = req.params.id;
+        console.log(id);
     });
 
     // =====================================

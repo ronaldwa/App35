@@ -1,6 +1,6 @@
 <% whiskyName.forEach(function(whisky){ %>
   <div class='whisky'>
-  <li><a href='/connector'><b><%= whisky.name %></b></a>  </li>
+  <li><a href='/connector/<%= whisky._id %>'><b><%= whisky.name %></b></a>  </li>
   Country: <%= whisky.country %> <br>
   type: <%= whisky.type %>
 </div>
