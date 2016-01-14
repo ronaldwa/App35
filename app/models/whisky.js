@@ -8,7 +8,8 @@ var whiskySchema = mongoose.Schema({
 	name		: String,
 	type		: String,
 	country		: String,
-	ratings: []
+	ratings		: [],
+	tags		: []
 });
 
 // create the model for whiskys and expose it to our app

@@ -7,14 +7,15 @@ var whisky;
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
 
-exports.check = function(whisky, req, res){
+exports.check = function(whisky, description, req, res){
     console.log(whisky);
     global.rated = 7;
- var query = {};
- query[whisky] = {$ne: []};
+    var getWhiskyNumber = {};
+    getWhiskyNumber[whisky] = {$ne: []};
+    var ratingQuery = {};
         //query.ratings.$elemMatch[whisky] = {$gt: 0};
 
-        User.find({$and: [{_id:req.user._id}, {ratings: {$elemMatch: query}}]})
+        User.find({$and: [{_id:req.user._id}, {ratings: {$elemMatch: getWhiskyNumber}}]})
         .exec(function(err, result){
         	if(err){
         		console.log(err);
