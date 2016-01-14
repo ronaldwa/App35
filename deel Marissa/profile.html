@@ -22,8 +22,9 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	
 </head>
+
 <body>
-  <nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -33,32 +34,36 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+	  
 	  <div class="navbar-brand">
-	  <a href="index.html" class="home"> Distilled Gold <img class="logo" src="logoDG.png" alt="Logo" height="50" width="60"> </a>
+	  <a href="index.html" class="home"> Distilled Gold <img class="logo" src="img/logoDG.png" alt="Logo" height="50" width="60"> </a>
 	  </div>
+	  
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="list.html">Whiskeys </a></li> <!--dit was eerst list-->
-
+	  	<li><a href="history.html">Whiskey facts </a></li>
+        <li><a href="list.html">Rate whiskeys </a></li> <!--dit was eerst list-->
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> jurjenfaber94@hotmail.com <span class="caret"></span></a>
            <!--hier moet het email adres veranderd worden naar bestanden uit de database -->
+		   
 		  <ul class="dropdown-menu">
             <li><a href="/profile">Profile</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/logout">Log out </a></li>
           </ul>
+		  
         </li>
       </ul>
 	  
 	  	  <!--search bar, ik weet niet of hij ook echt al iets kan vinden op de pagina -->
-	          <div class="col-sm-3 col-md-3 pull-right">
+	    <div class="col-sm-3 col-md-3 pull-right">
             <form class="navbar-form" role="search">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" name="q">
@@ -68,53 +73,97 @@
                 </div>
             </form>
         </div>   
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
 
 <div class="container">
+	<div class="alert alert-info text-center" role="alert">
+		<div class="page-header text-center">
+			<h1><span class="fa fa-anchor"></span> Profile Page of jurjenfaber94@hotmail</h1>
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page of jurjenfaber94@hotmail</h1>
+			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+			<a href="list.html" class="btn btn-default"><span class="fa fa-user"></span> List </a>
+			<a href="/00001" class="btn btn-default btn-sm">Whisky</a>
 
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-        <a href="/list" class="btn btn-default"><span class="fa fa-user"></span> List </a>
-        <a href="/00001" class="btn btn-default btn-sm">Whisky</a>
-
-    </div>
-
-    <div class="row">
-
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
-
-                    <p>
-                        <strong>id</strong>: 569182d8f09757f817ad397<br>
-                        <strong>email</strong>: jurjenfaber94@hotmail.com<br>
-                        <strong>password</strong>: geheim
-                    </p>
-
-            </div>
+		</div>
+	</div>
+ 
+	<div class="col-sm-6  text-center">
+		<div class="well">
+            <h3 class="text-primary">Welcome! </h3>
+			<p> Good to see you again </p>
         </div>
-        <!-- FACEBOOK INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %>
-                    </p>
-
-            </div>
+			
+		<!-- LOCAL INFORMATION -->
+        <div class="well">
+			<h3><span class="fa fa-user"></span> Local</h3>
+                <p>
+                <strong>id</strong>: 569182d8f09757f817ad397<br>
+                <strong>email</strong>: jurjenfaber94@hotmail.com<br>
+                <strong>password</strong>: geheim
+                </p>
         </div>
-
     </div>
+		
+    <div class="col-sm-6  text-center">
+        <div class="well">
+            <h3 class="text-primary">The whiskey you rated last time: </h3>
+			<p> uit database halen </p>
+			<br>
+			<img class="lastwhiskey" src="img/whiskey1.png" height="400" width="150">
+			<br>
+            </div>
+    </div>
+		
+	<div class="col-sm-12">
+		<div class="well">
+			<h3 class="text-primary text-center">Get more inspiration!</h3>
+			<h4 class="text text-center"> top 5 whiskeys </h4>
+			      
+			<div class="row">
+				<div class="col-lg-1"> 
+				</div>
+			
+				<div class="col-lg-2">
+				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+				  <h2>Whiskey 1</h2>
+				  <p> info about this whiskey </p>
+				  <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+				</div>
+				
+				<div class="col-lg-2">
+				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+				  <h2>Whiskey 2</h2>
+				  <p> info about this whiskey </p>
+				  <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+				</div>
+				
+				<div class="col-lg-2">
+				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+				  <h2>Whiskey 3</h2>
+				  <p> info about this whiskey </p>
+				  <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+				</div>
+			
+				<div class="col-lg-2">
+				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+				  <h2>Whiskey 4</h2>
+				  <p> info about this whiskey </p>
+				  <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+				</div>
+				
+				<div class="col-lg-2">
+				  <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+				  <h2>Whiskey 5</h2>
+				  <p> info about this whiskey </p>
+				  <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+				</div>
+			</div>
 
+		</div>
+	</div>
 </div>
+
 </body>
 </html>
