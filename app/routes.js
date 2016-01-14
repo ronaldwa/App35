@@ -10,6 +10,8 @@ var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
 var Whisky = conn.model('Whisky');
 var results;
+global.whiskyNum = 00001;
+global.varstring = "/rateOneStar";
 
 module.exports = function(app, passport) {
 
@@ -95,12 +97,11 @@ module.exports = function(app, passport) {
         res.render('pages/drinks/00001.ejs', {
             user: req.user
         });
-
-        whiskyNum = 00006;
     });
 
-    app.get('/rateOneStar', isLoggedIn, function(req, res){
-        rating.check(whiskyNum, whiskyNum, req, res);
+    app.post(varstring, isLoggedIn, function(req, res){
+        whiskyRating = +req.body.whiskyRating;
+        rating.check(whiskyNum, req.body.description, whiskyRating, req, res);
 
     });
 
