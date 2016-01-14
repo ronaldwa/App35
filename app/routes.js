@@ -105,6 +105,12 @@ module.exports = function(app, passport) {
 
     });
 
+    app.get('/history', isLoggedIn, function(req, res) {
+        res.render('pages/history.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+
     app.get('/rated', isLoggedIn, function(req, res){
         res.render('pages/rated.ejs', {
             user : req.user, // get the user out of session and pass to template
