@@ -128,6 +128,134 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/list_blended', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Blended'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_blended.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_bourbon', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Bourbon'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_bourbon.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_corn', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Corn'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_corn.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_grain', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Grain'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_grain.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_malt', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Malt'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_malt.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_rye', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Rye'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_rye.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_singlepot', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Single Pot Still'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_singlepot.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
+    app.get('/list_tennessee', isLoggedIn, function(req, res){
+        Whisky.find({type: 'Tennessee'}).lean().exec(function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(result);
+            global.results = result;
+            res.render('pages/list_tennessee.ejs', {
+                user : req.user, // get the user out of session and pass to templat
+                whiskyName: global.results
+            });
+          }
+        });
+    });
+
     app.get('/rateTwoStars', isLoggedIn, function(req, res){
     });
 };

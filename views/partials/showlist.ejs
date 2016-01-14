@@ -1,0 +1,10 @@
+<% whiskyName.forEach(function(whisky){ %>
+  <div class='whisky'>
+  <li><b><%= whisky.name %></b>  </li>
+  Country: <%= whisky.country %> <br>
+  type: <%= whisky.type %>
+</div>
+<%  }); %>
+<hr>
+Have you been drinking a Whisky that is not in the list? <br>
+<a href="/add"> Add your own Whisky</a>
