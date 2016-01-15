@@ -140,7 +140,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list', isLoggedIn, function(req, res){
-        Whisky.find({}).lean().exec(function(err, result){
+        Whisky.find({}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -156,7 +156,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_blended', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Blended'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Blended'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -172,7 +172,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_bourbon', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Bourbon'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Bourbon'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -188,7 +188,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_corn', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Corn'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Corn'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -204,7 +204,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_grain', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Grain'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Grain'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -220,7 +220,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_malt', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Malt'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Malt'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -236,7 +236,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_rye', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Rye'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Rye'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -252,7 +252,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_singlepot', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Single Pot Still'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Single Pot Still'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -268,7 +268,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/list_tennessee', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Tennessee'}).lean().exec(function(err, result){
+        Whisky.find({type: 'Tennessee'}).sort('name').lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
@@ -287,7 +287,7 @@ module.exports = function(app, passport) {
     });
 
     app.post('/searchresult', isLoggedIn, function(req, res) {
-      Whisky.find({name: {$regex :  req.body.search}}).lean().exec(function(err, result){
+      Whisky.find({name: {$regex :  req.body.search}}).sort('name').lean().exec(function(err, result){
         if(err){
           console.log(err);
       }
