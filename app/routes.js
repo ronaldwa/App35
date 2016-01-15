@@ -79,6 +79,9 @@ module.exports = function(app, passport) {
 
     app.get('/whiskys/:id', isLoggedIn, function(req, res) {
         id = req.params.id;
+        alreadyVoted = false;
+        counter = 0;
+        sum = 0;
         Whisky.find({_id: id}).lean().exec(function(err, result){
           if(err){
             console.log(err);
@@ -87,19 +90,24 @@ module.exports = function(app, passport) {
         {
 
                 for(var key in result[0].ratings){
-                        // console.log(Object.keys(result[0].ratings[key])[0]);
+                        userID = Object.keys(result[0].ratings[key])[0];
                         if(Object.keys(result[0].ratings[key])[0] == req.user._id){
+                            grading = result[0].ratings[key][req.user._id].rating;
                             alreadyVoted = true;
                         }
+                        counter++;
+                        sum = sum + result[0].ratings[key][userID].rating;
                     }
-            console.log(alreadyVoted);
+            console.log(grading);
             global.info = result;
             console.log(global.info);
+            mean = sum / counter;
             res.render('pages/whisky.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyInfo: global.info,
-                alreadyVoted: alreadyVoted
-
+                alreadyVoted: alreadyVoted,
+                grading: grading,
+                mean: mean
             });
         }
     });
