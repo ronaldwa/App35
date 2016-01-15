@@ -56,3 +56,12 @@ body {
 .form-group{
  margin: 0 auto;
 }
+.button3{
+	font-size: 12px;
+}
+.form-group{
+	margin-bottom: 10px;
+}
+.col-lg-2 p{
+	margin-bottom: 3px;
+}

@@ -8,8 +8,11 @@
 <div class="login">
 <div class="col-sm-6 col-sm-offset-3">
 
-    <h1><span class="fa fa-sign-in"></span> Login</h1>
-
+  <div class="alert text-center" role="alert">
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Log in</h1>
+    </div>
+  </div>
     <!-- show any messages that come back with authentication -->
     <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
@@ -26,14 +29,12 @@
             <input type="password" class="form-control" name="password">
         </div>
 
-        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+        <p align="center"> <button class="button2 btn btn-lg btn-primary" type="login">login</button> </p>
     </form>
 
     <hr>
 
-    <p>Need an account? <a href="/signup">Signup</a></p>
-    <p>Or go <a href="/">home</a>.</p>
-
+    <h5>Need an account?  <a class="button3 btn btn-lg btn-primary" href="/signup" type="signup">Sign up</a> </h5>
 </div>
 </div>
 </div>
