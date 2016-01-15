@@ -18,6 +18,11 @@
         Country: <%= whiskyInfo[0].country %> <br>
         Type: <%= whiskyInfo[0].type %> <br>
   </div>
+<% if(alreadyVoted){
+
+}
+else{
+  %>
 <div class="col-sm-4">
   <form action="/rate" method="post">
       <label>Grade</label>
@@ -39,6 +44,7 @@
   <p align="center"> <button class="button2 btn btn-lg btn-primary" type="submit">Submit</button> </p><!--Title for button is same as that of the page-->
   </form>
   </div>
+  <%}%>
   <div class="col-sm-2"></div>
   </div>
 </body>
