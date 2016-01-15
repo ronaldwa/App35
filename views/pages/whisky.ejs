@@ -18,10 +18,22 @@
         Country: <%= whiskyInfo[0].country %> <br>
         Type: <%= whiskyInfo[0].type %> <br>
         Mean Rating: <%= mean %><br>
-      
+        Reviews:<br>
+          
+
+
+
+
   </div>
-<% if(alreadyVoted){
-%><b><font size="40"><%= grading%></font><%
+<% if(alreadyVoted){ %>
+  <b><font size="40">
+    <%= grading%>
+  </font>
+  <br>
+  <p>
+  <%= description2   %>
+</p>
+  <%
 }
 else{
   %>

@@ -93,10 +93,12 @@ module.exports = function(app, passport) {
                         userID = Object.keys(result[0].ratings[key])[0];
                         if(Object.keys(result[0].ratings[key])[0] == req.user._id){
                             grading = result[0].ratings[key][req.user._id].rating;
+                            description = result[0].ratings[key][req.user._id].description;
                             alreadyVoted = true;
                         }
                         counter++;
                         sum = sum + result[0].ratings[key][userID].rating;
+                        console.log(result[0].ratings[key][userID].description);
                     }
             console.log(grading);
             global.info = result;
@@ -107,7 +109,10 @@ module.exports = function(app, passport) {
                 whiskyInfo: global.info,
                 alreadyVoted: alreadyVoted,
                 grading: grading,
-                mean: mean
+                mean: mean,
+                description2: description,
+                userid: req.user._id,
+                result: result
             });
         }
     });
