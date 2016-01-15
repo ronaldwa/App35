@@ -85,16 +85,15 @@ module.exports = function(app, passport) {
         }
         else
         {
-            console.log(result);
-            global.info = result;
-            console.log(global.info);
+          global.info = result;
             res.render('pages/whisky.ejs', {
                 user : req.user, // get the user out of session and pass to templat
-                whiskyInfo: global.info
+                whiskyInfo: global.info,
+                //grading: number
             });
         }
     });
-        console.log(id);
+      //  console.log(id);
     });
 
     // =====================================
