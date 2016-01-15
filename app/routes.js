@@ -79,17 +79,27 @@ module.exports = function(app, passport) {
 
     app.get('/whiskys/:id', isLoggedIn, function(req, res) {
         id = req.params.id;
-        Whisky.find({_id: id}).exec(function(err, result){
+        Whisky.find({_id: id}).lean().exec(function(err, result){
           if(err){
             console.log(err);
         }
         else
         {
-          global.info = result;
+
+                for(var key in result[0].ratings){
+                        // console.log(Object.keys(result[0].ratings[key])[0]);
+                        if(Object.keys(result[0].ratings[key])[0] == req.user._id){
+                            alreadyVoted = true;
+                        }
+                    }
+            console.log(alreadyVoted);
+            global.info = result;
+            console.log(global.info);
             res.render('pages/whisky.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyInfo: global.info,
-                //grading: number
+                alreadyVoted: alreadyVoted
+
             });
         }
     });
@@ -113,11 +123,11 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/00001', isLoggedIn, function(req, res){
-        res.render('pages/drinks/00001.ejs', {
-            user: req.user
-        });
-    });
+    // app.get('/00001', isLoggedIn, function(req, res){
+    //     res.render('pages/drinks/00001.ejs', {
+    //         user: req.user
+    //     });
+    // });
 
     app.post('/rate', isLoggedIn, function(req, res){
         whiskyRating = +req.body.whiskyRating;

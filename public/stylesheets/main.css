@@ -40,11 +40,12 @@
 
 body {
 	background-color: black;
-	background-image: url("glass.jpg");
+	background-image: url("background.jpg");
 	background-repeat: no-repeat;
-	background-size: 600px 400px;
-	background-position: left bottom;
+/*	background-size: 600px 400px;
+	background-position: left bottom;*/
 	background-attachment: fixed;
+	background-size: 100%;
 }
 .whisky{
   border-radius: 10px;
