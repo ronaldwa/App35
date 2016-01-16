@@ -64,10 +64,45 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('pages/profile.ejs', {
-            user : req.user // get the user out of session and pass to template
+        User.find({_id:req.user._id}).exec(function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                lastFiveRatings = [];
+                lastFiveWhiskyID = [];
+                whiskyNames = [];
+                console.log(result);
+                var rating = result[0].ratings;
+                for (var i = rating.length - 1; i >= 0; i--){
+                    for(var key in rating[i]){
+                        lastFiveRatings.push(rating[i][key]["rating"]);
+                        lastFiveWhiskyID.push(Object.keys((rating[i]))[0]);
+                    }
+                }
+                for(var j = 0; j <= lastFiveWhiskyID.length - 1; j++){
+                        Whisky.find({_id:lastFiveWhiskyID[j]}).exec(function(err,whiskyResult){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                whiskyNames.push(whiskyResult[0].name);
+                                if(lastFiveWhiskyID.length === whiskyNames.length && lastFiveRatings.length === rating.length){
+                                    console.log(whiskyNames);
+                                    console.log(lastFiveRatings);
+                                    res.render('pages/profile.ejs', {
+                                        user : req.user, // get the user out of session and pass to template
+                                        whiskyNames: whiskyNames,
+                                        lastFiveRatings: lastFiveRatings,
+                                        lastFiveWhiskyID: lastFiveWhiskyID
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         });
-    });
 
     // =====================================
     // LOGOUT ==============================
@@ -82,6 +117,7 @@ module.exports = function(app, passport) {
         alreadyVoted = false;
         counter = 0;
         sum = 0;
+        description = [];
         Whisky.find({_id: id}).lean().exec(function(err, result){
           if(err){
             console.log(err);
@@ -89,17 +125,16 @@ module.exports = function(app, passport) {
         else
         {
 
-                for(var key in result[0].ratings){
-                        userID = Object.keys(result[0].ratings[key])[0];
-                        if(Object.keys(result[0].ratings[key])[0] == req.user._id){
-                            grading = result[0].ratings[key][req.user._id].rating;
-                            description = result[0].ratings[key][req.user._id].description;
-                            alreadyVoted = true;
-                        }
-                        counter++;
-                        sum = sum + result[0].ratings[key][userID].rating;
-                        console.log(result[0].ratings[key][userID].description);
-                    }
+            for(var key in result[0].ratings){
+                userID = Object.keys(result[0].ratings[key])[0];
+                if(Object.keys(result[0].ratings[key])[0] == req.user._id){
+                    grading = result[0].ratings[key][req.user._id].rating;
+                    alreadyVoted = true;
+                }
+                counter++;
+                sum = sum + result[0].ratings[key][userID].rating;
+                description.push(result[0].ratings[key][userID].description);
+            }
             console.log(grading);
             global.info = result;
             console.log(global.info);
@@ -110,14 +145,12 @@ module.exports = function(app, passport) {
                 alreadyVoted: alreadyVoted,
                 grading: grading,
                 mean: mean,
-                description2: description,
+                description: description,
                 userid: req.user._id,
-                result: result
             });
         }
     });
-      //  console.log(id);
-    });
+});
 
     // =====================================
     // DRINKS ==============================
@@ -142,187 +175,57 @@ module.exports = function(app, passport) {
     //     });
     // });
 
-    app.post('/rate', isLoggedIn, function(req, res){
-        whiskyRating = +req.body.whiskyRating;
-        rating.add(id, req.body.description, whiskyRating, req, res);
-    });
+app.post('/rate', isLoggedIn, function(req, res){
+    whiskyRating = +req.body.whiskyRating;
+    rating.add(id, req.body.description, whiskyRating, req, res);
+});
 
-    app.get('/history', isLoggedIn, function(req, res) {
-        res.render('pages/history.ejs', {
+app.get('/history', isLoggedIn, function(req, res) {
+    res.render('pages/history.ejs', {
             user : req.user // get the user out of session and pass to template
         });
-    });
+});
 
-    app.get('/rated', isLoggedIn, function(req, res){
-        res.render('pages/rated.ejs', {
+app.get('/rated', isLoggedIn, function(req, res){
+    res.render('pages/rated.ejs', {
             user : req.user, // get the user out of session and pass to template
             rated: global.rated,
             description: global.description
         });
-    });
+});
 
-    app.get('/list', isLoggedIn, function(req, res){
-        Whisky.find({}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list.ejs', {
+app.get('/list', isLoggedIn, function(req, res){
+    Whisky.find({}).sort('name').lean().exec(function(err, result){
+      if(err){
+        console.log(err);
+    }
+    else{
+        console.log(result);
+        global.results = result;
+        res.render('pages/list.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyName: global.results
             });
-        }
-    });
-    });
+    }
+});
+});
 
-    app.get('/list_blended', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Blended'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_blended.ejs', {
+app.get('/list/:type', isLoggedIn, function(req, res){
+    Whisky.find({type: req.params.type}).sort('name').lean().exec(function(err, result){
+      if(err){
+        console.log(err);
+    }
+    else{
+        console.log(result);
+        global.results = result;
+        res.render('pages/shortlist.ejs', {
                 user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
+                whiskyName: global.results,
+                type: req.params.type
             });
-        }
-    });
-    });
-
-    app.get('/list_bourbon', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Bourbon'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_bourbon.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/list_corn', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Corn'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_corn.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/list_grain', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Grain'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_grain.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/list_malt', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Malt'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_malt.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/list_rye', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Rye'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_rye.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/list_singlepot', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Single Pot Still'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_singlepot.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/list_tennessee', isLoggedIn, function(req, res){
-        Whisky.find({type: 'Tennessee'}).sort('name').lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            global.results = result;
-            res.render('pages/list_tennessee.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyName: global.results
-            });
-        }
-    });
-    });
-
-    app.get('/rateTwoStars', isLoggedIn, function(req, res){
-    });
-
-    app.post('/searchresult', isLoggedIn, function(req, res) {
-      Whisky.find({name: {$regex :  req.body.search}}).sort('name').lean().exec(function(err, result){
-        if(err){
-          console.log(err);
-      }
-      else{
-          console.log(result);
-          global.results = result;
-          res.render('pages/searchresult.ejs', {
-              user : req.user, // get the user out of session and pass to templat
-              whiskyName: global.results
-          });
-      }
-  });
-  });
+    }
+});
+});
 };
 
 // route middleware to make sure a user is logged in

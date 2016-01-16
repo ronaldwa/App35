@@ -17,8 +17,10 @@
         Name: <%= whiskyInfo[0].name %></a><br>
         Country: <%= whiskyInfo[0].country %> <br>
         Type: <%= whiskyInfo[0].type %> <br>
-        Mean Rating: <%= mean %><br>
-        Reviews:<br>
+        Average Rating: <%= mean %><br>
+        Reviews: <% for (var i = description.length - 1; i >= 0; i--){
+          %><li><%= description[i]%></li><%}%>
+          <br>
           
 
 
@@ -30,9 +32,6 @@
     <%= grading%>
   </font>
   <br>
-  <p>
-  <%= description2   %>
-</p>
   <%
 }
 else{

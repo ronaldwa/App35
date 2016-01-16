@@ -15,22 +15,21 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/history">Irish whiskey history </a></li>
+        <li><a href="/history">Irish Whiskey History </a></li>
         <li><a href="/add">Add Wisky </a></li>
-        <li><a href="/00001">Rate Wisky </a></li>
         <li class="dropdown">
           <a href="/list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> List <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/list">All whiskies </a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/list_blended">Blended</a></li>
-            <li><a href="/list_bourbon">Bourbon</a></li>
-            <li><a href="/list_malt">Malt</a></li>
-            <li><a href="/list_corn">Corn</a></li>
-            <li><a href="/list_grain">Grain</a></li>
-            <li><a href="/list_rye">Rye</a></li>
-            <li><a href="/list_singlepot">Single Pot Still</a></li>
-            <li><a href="/list_tennessee">Tennessee</a></li>
+            <li><a href="/list/Blended">Blended</a></li>
+            <li><a href="/list/Bourbon">Bourbon</a></li>
+            <li><a href="/list/Malt">Malt</a></li>
+            <li><a href="/list/Corn">Corn</a></li>
+            <li><a href="/list/Grain">Grain</a></li>
+            <li><a href="/list/Rye">Rye</a></li>
+            <li><a href="/list/Single Pot Still">Single Pot Still</a></li>
+            <li><a href="/list/Tennessee">Tennessee</a></li>
 
           </ul>
         </li>
@@ -48,7 +47,7 @@
         </form>
       </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= user.local.email %> <span class="caret"></span></a>
+          <a href="/profile" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= user.local.email %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/profile">Profile</a></li>
             <li role="separator" class="divider"></li>

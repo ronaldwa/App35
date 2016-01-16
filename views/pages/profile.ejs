@@ -22,9 +22,15 @@
 
   		<!-- LOCAL INFORMATION -->
           <div class="well">
-  			<h3><span class="fa fa-user"></span> account</h3>
+  			<h3><span class="fa fa-user"></span>Last Rated Whiskeys</h3>
                   <p>
-                  <strong>email</strong>: <%= user.local.email %><br>
+                  <ul>
+                  <% for(var i = 0; i <= lastFiveRatings.length - 1; i++){
+                  %><li><a href="/whiskys/<%= lastFiveWhiskyID[i] %>"><%= whiskyNames[i]%>: <%= lastFiveRatings[i]%></a><br>
+                  <%
+                  }
+                  %>
+                  </ul>
                   </p>
                   <a href="/logout" class="btn btn-default btn-sm">Logout</a>
           </div>
