@@ -124,7 +124,7 @@ module.exports = function(app, passport) {
         }
         else
         {
-
+            var grading;
             for(var key in result[0].ratings){
                 userID = Object.keys(result[0].ratings[key])[0];
                 if(Object.keys(result[0].ratings[key])[0] == req.user._id){
@@ -135,10 +135,12 @@ module.exports = function(app, passport) {
                 sum = sum + result[0].ratings[key][userID].rating;
                 description.push(result[0].ratings[key][userID].description);
             }
-            console.log(grading);
+            mean = sum / counter;
+            if(result[0].ratings.length === 0){
+                mean = "No ratings yet!";
+            }
             global.info = result;
             console.log(global.info);
-            mean = sum / counter;
             res.render('pages/whisky.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyInfo: global.info,
@@ -146,7 +148,7 @@ module.exports = function(app, passport) {
                 grading: grading,
                 mean: mean,
                 description: description,
-                userid: req.user._id,
+                userid: req.user._id
             });
         }
     });
