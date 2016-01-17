@@ -5,6 +5,8 @@ var configDB = require('../config/database.js');
 var mongoose = require('mongoose');
 var whisky = require('../app/models/whisky.js');
 var addWhisky = require('../public/js/addWhisky.js');
+var profile = require('../public/js/loadProfile.js');
+var getWhisky = require('../public/js/getWhisky.js');
 
 var conn = mongoose.createConnection(configDB.url);
 var User = conn.model('User');
@@ -12,7 +14,6 @@ var Whisky = conn.model('Whisky');
 var results;
 global.whiskyNum = 00001;
 global.varstring = "/rateOneStar";
-global.whiskyID;
 
 module.exports = function(app, passport) {
 
@@ -64,45 +65,8 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
-        User.find({_id:req.user._id}).exec(function(err,result){
-            if(err){
-                console.log(err);
-            }
-            else{
-                lastFiveRatings = [];
-                lastFiveWhiskyID = [];
-                whiskyNames = [];
-                console.log(result);
-                var rating = result[0].ratings;
-                for (var i = rating.length - 1; i >= 0; i--){
-                    for(var key in rating[i]){
-                        lastFiveRatings.push(rating[i][key]["rating"]);
-                        lastFiveWhiskyID.push(Object.keys((rating[i]))[0]);
-                    }
-                }
-                for(var j = 0; j <= lastFiveWhiskyID.length - 1; j++){
-                        Whisky.find({_id:lastFiveWhiskyID[j]}).exec(function(err,whiskyResult){
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                whiskyNames.push(whiskyResult[0].name);
-                                if(lastFiveWhiskyID.length === whiskyNames.length && lastFiveRatings.length === rating.length){
-                                    console.log(whiskyNames);
-                                    console.log(lastFiveRatings);
-                                    res.render('pages/profile.ejs', {
-                                        user : req.user, // get the user out of session and pass to template
-                                        whiskyNames: whiskyNames,
-                                        lastFiveRatings: lastFiveRatings,
-                                        lastFiveWhiskyID: lastFiveWhiskyID
-                                    });
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-        });
+        profile.load(req.user, req, res);
+    });
 
     // =====================================
     // LOGOUT ==============================
@@ -113,48 +77,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/whiskys/:id', isLoggedIn, function(req, res) {
-        id = req.params.id;
-        alreadyVoted = false;
-        counter = 0;
-        sum = 0;
-        description = [];
-        Whisky.find({_id: id}).lean().exec(function(err, result){
-          if(err){
-            console.log(err);
-        }
-        else
-        {
-            var grading;
-            for(var key in result[0].ratings){
-                userID = Object.keys(result[0].ratings[key])[0];
-                if(Object.keys(result[0].ratings[key])[0] == req.user._id){
-                    grading = result[0].ratings[key][req.user._id].rating;
-                    alreadyVoted = true;
-                }
-                counter++;
-                sum = sum + result[0].ratings[key][userID].rating;
-                description.push(result[0].ratings[key][userID].description);
-            }
-            mean = sum / counter;
-            reviewCheck = false;
-            if(result[0].ratings.length === 0){
-                mean = "No ratings yet!";
-                reviewCheck = true;
-            }
-            global.info = result;
-            console.log(global.info);
-            res.render('pages/whisky.ejs', {
-                user : req.user, // get the user out of session and pass to templat
-                whiskyInfo: global.info,
-                alreadyVoted: alreadyVoted,
-                grading: grading,
-                mean: mean,
-                description: description,
-                userid: req.user._id,
-                reviewCheck: reviewCheck
-            });
-        }
-    });
+        getWhisky.get(req, res);
 });
 
     // =====================================
