@@ -18,8 +18,12 @@
         Country: <%= whiskyInfo[0].country %> <br>
         Type: <%= whiskyInfo[0].type %> <br>
         Average Rating: <%= mean %><br>
+        <% if(reviewCheck){
+
+        }
+        else{ %>
         Reviews: <% for (var i = description.length - 1; i >= 0; i--){
-          %><li><%= description[i]%></li><%}%>
+          %><li><%= description[i]%></li><%}}%>
           <br>
           
 

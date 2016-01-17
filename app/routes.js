@@ -138,6 +138,7 @@ module.exports = function(app, passport) {
             mean = sum / counter;
             if(result[0].ratings.length === 0){
                 mean = "No ratings yet!";
+                reviewCheck = true;
             }
             global.info = result;
             console.log(global.info);
@@ -148,7 +149,8 @@ module.exports = function(app, passport) {
                 grading: grading,
                 mean: mean,
                 description: description,
-                userid: req.user._id
+                userid: req.user._id,
+                reviewCheck: reviewCheck
             });
         }
     });
