@@ -34,6 +34,16 @@ module.exports = function(app, passport) {
         res.render('pages/login.ejs', { message: req.flash('loginMessage') });
     });
 
+    app.get('/login/:succesornot', function(req,res){
+        if(req.params.succesornot == "succes"){
+            console.log("Hello!");
+            res.render('pages/login.ejs', {
+                user: req.user,
+                message: "Account succesfully created."
+            });
+        }
+    });
+
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
        successRedirect : '/profile', // redirect to the secure profile section
@@ -54,7 +64,7 @@ module.exports = function(app, passport) {
 
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {
-       successRedirect : '/profile', // redirect to the secure profile section
+       successRedirect : '/login/succes', // redirect to the secure profile section
        failureRedirect : '/signup', // redirect back to the signup page if there is an error
        failureFlash : true // allow flash messages
    }));
