@@ -16,7 +16,6 @@ exports.load = function(user, req, res){
 			lastFiveRatings = [];
 			lastFiveWhiskyID = [];
 			whiskyNames = [];
-			console.log(result);
 			var rating = result[0].ratings;
 			for (var i = rating.length - 1; i >= 0; i--){
 				for(var key in rating[i]){
@@ -32,8 +31,6 @@ exports.load = function(user, req, res){
 					else{
 						whiskyNames.push(whiskyResult[0].name);
 						if(lastFiveWhiskyID.length === whiskyNames.length && lastFiveRatings.length === rating.length){
-							console.log(whiskyNames);
-							console.log(lastFiveRatings);
 							res.render('pages/profile.ejs', {
                                         user : user, // get the user out of session and pass to template
                                         whiskyNames: whiskyNames,

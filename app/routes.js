@@ -36,7 +36,6 @@ module.exports = function(app, passport) {
 
     app.get('/login/:succesornot', function(req,res){
         if(req.params.succesornot == "succes"){
-            console.log("Hello!");
             res.render('pages/login.ejs', {
                 user: req.user,
                 message: "Account succesfully created."
@@ -138,7 +137,6 @@ app.get('/list', isLoggedIn, function(req, res){
         console.log(err);
     }
     else{
-        console.log(result);
         global.results = result;
         res.render('pages/list.ejs', {
                 user : req.user, // get the user out of session and pass to templat
@@ -154,7 +152,6 @@ app.get('/list/:type', isLoggedIn, function(req, res){
         console.log(err);
     }
     else{
-        console.log(result);
         global.results = result;
         res.render('pages/shortlist.ejs', {
                 user : req.user, // get the user out of session and pass to templat
@@ -171,7 +168,6 @@ app.post('/searchresult', isLoggedIn, function(req, res) {
           console.log(err);
       }
       else{
-          console.log(result);
           global.results = result;
           res.render('pages/searchresult.ejs', {
               user : req.user, // get the user out of session and pass to templat

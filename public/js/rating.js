@@ -33,11 +33,8 @@ exports.add = function(whiskyID, whiskyDescription, whiskyRating, req, res){
         					console.log(err);
         				}
         				else{
-        					console.log("Succesfully updated!");
         				};
         			});
-        		console.log(result);
-        		console.log(req.user._id);
         	}
         	else{
                 var rating = result[0].ratings;
@@ -49,7 +46,6 @@ exports.add = function(whiskyID, whiskyDescription, whiskyRating, req, res){
                     }
 
                 };
-                console.log("You already voted for this whisky");
             }
         });
 
@@ -71,11 +67,8 @@ Whisky.find({_id: id})
                     console.log(err);
                 }
                 else{
-                    console.log("Succesfully updated!");
                 };
             });
-        console.log(result);
-        console.log(req.user._id);
     }
 });
 

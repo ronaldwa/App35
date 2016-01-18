@@ -9,10 +9,6 @@ var Whisky = conn.model('Whisky');
 
 exports.add = function(whiskyName, whiskyType, whiskyCountry, req, res){
 
-    console.log(whiskyName);
-    console.log(whiskyType);
-    console.log(whiskyCountry);
-
     var whisky = new Whisky({
         name: whiskyName,
         type: whiskyType,

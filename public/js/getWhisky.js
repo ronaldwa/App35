@@ -37,7 +37,6 @@ exports.get = function(req, res){
                 reviewCheck = true;
             }
             global.info = result;
-            console.log(global.info);
             res.render('pages/whisky.ejs', {
                 user : req.user, // get the user out of session and pass to templat
                 whiskyInfo: global.info,
