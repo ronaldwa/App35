@@ -66,3 +66,18 @@ body {
 .col-lg-2 p{
 	margin-bottom: 3px;
 }
+
+@media (min-width: 600px) and (max-width: 1050px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+}
